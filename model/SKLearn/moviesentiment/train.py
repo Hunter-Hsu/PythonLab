@@ -85,7 +85,7 @@ train_labels = np.array(train_labels)
 test_labels = np.array(test_labels)
 val_labels = np.array(val_labels)
 
-# define and  train an cnn model
+# define and train an cnn model
 vectorizer = CountVectorizer(min_df=1)
 clf = LogisticRegression(solver="liblinear")
 pipeline = Pipeline([("preprocess", vectorizer), ("clf", clf)])
@@ -101,5 +101,6 @@ print("Train accuracy", accuracy_score(train_labels, preds_train))
 print("Validation accuracy", accuracy_score(val_labels, preds_val))
 print("Test accuracy", accuracy_score(test_labels, preds_test))
 
+# save the model
 print("Saving Model to model.joblib")
-joblib.dump(pipeline, "model.joblib")
+joblib.dump(pipeline, "model/SKLearn/moviesentiment/model.joblib")
