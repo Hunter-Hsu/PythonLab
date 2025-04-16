@@ -1,3 +1,4 @@
+"""Module providing a mlflow tracking sample. python version."""
 # ========================
 # MLflow Tracking Sample
 # ========================
@@ -44,20 +45,19 @@ import pandas as pd
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score
 
 # Step 2 - Start a Tracking Server
 
 # Run mlflow server on Docker:
-## docker run --name mlflow-server -d --rm -p 5000:5000 \
+## docker run --restart=always --name mlflow-server -d --rm -p 5000:5000 \
 ##   -e MLFLOW_TRACKING_USERNAME=admin \
 ##   -e MLFLOW_TRACKING_PASSWORD=admin \
 ##   ghcr.io/mlflow/mlflow:v2.21.3 \
 ##    mlflow server \
 ##   --backend-store-uri sqlite:///mlflow.db \  
 ##   --default-artifact-root /mlflow/artifacts \
-    
-##   mlflow server -h 0.0.0.0
+##   --host 0.0.0.0
 
 # Step 3 - Train a model and prepare metadata for logging
 # Load the Iris dataset
@@ -88,7 +88,7 @@ accuracy = accuracy_score(y_test, y_pred)
 
 # Step 4 - Connect to the remote Tracking Server URI for logging
 # Set our tracking server uri for logging
-mlflow.set_tracking_uri(uri="http://web.mlflow.test/")
+mlflow.set_tracking_uri(uri="http://localhost:5000/")
 
 # Create a new MLflow Experiment
 mlflow.set_experiment("MLflow Quickstart")
@@ -122,15 +122,17 @@ loaded_model = mlflow.pyfunc.load_model(model_info.model_uri)
 
 predictions = loaded_model.predict(X_test)
 
-iris_feature_names = datasets.load_iris().feature_names
+# Load the iris dataset and get feature names
+iris_data = datasets.load_iris(return_X_y=False)
+iris_feature_names = iris_data['feature_names']
 
 result = pd.DataFrame(X_test, columns=iris_feature_names)
 result["actual_class"] = y_test
 result["predicted_class"] = predictions
 
-result[:4]
+print(result[:3])  # Display the first 3 rows of the result
 
 # Step 6 - View the Run in the MLflow UI
 ## In order to see the results of our run, we can navigate to the MLflow UI. 
-## Since we have already started the Tracking Server at http://web.mlflow.test/, 
+## Since we have already started the Tracking Server at http://localhost:5000/, 
 ## we can simply navigate to that URL in our browser.
