@@ -1,4 +1,4 @@
-"""Module providing a Support Vector Machine (SVM) model on the Iris dataset."""
+"""Module providing a Support Vector Machine (SVM) model on the Iris dataset. python version."""
 # =========================================================================================
 # Project: Iris Classification model with Support Vector Machine (SVM)
 # Description: This script trains a Support Vector Machine (SVM) model on the Iris dataset.

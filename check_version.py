@@ -3,8 +3,19 @@
 #
 # Check the versions of the libraries used in the project
 # and print them to the console.
-#
+# ---
 # pip show scikit-learn joblib flask mlflow
+# ---
+# 
+# Requirements:
+# - Python 3.7+
+# - TensorFlow 2.4.0 or later
+# - Scikit-learn 0.24.2 or later
+# - Joblib 0.16.0 or later
+# - Flask 1.1.2 or later
+# - MLflow 2.1.1 or later
+#
+# Notes:
 # pip install -U scikit-learn==0.24.2
 # pip install joblib==0.16.0
 # pip install flask
